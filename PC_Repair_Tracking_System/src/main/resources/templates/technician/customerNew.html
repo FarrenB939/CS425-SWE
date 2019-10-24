@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      layout:decorate="~{layouts/master-layout}">
+<head>
+    <title>PC Repair Tracking System - New Customer</title>
+</head>
+<body>
+    <th:block layout:fragment="header"></th:block>
+
+    <div layout:fragment="content" style="padding-top:1em;" class="container">
+        <div style="margin-bottom: 1em;">
+            <span style="font-size: 2em; color: #32a5e7;">New Customer Form</span>
+        </div>
+
+        <form id="newCustomerForm" method="post" action="/pcrepair/technician/customerNew" th:object="${customer}">
+            <fieldset>
+                <input type="hidden" name="userId" th:value="${customer.userId}"/>
+                <input type="hidden" name="addressID" th:value="${address.addressId}"/>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="firstName">First Name</label>
+                            <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"
+                                  class="alert alert-danger"></span>
+                            <input id="firstName" name="firstName" type="text" class="form-control"
+                                   th:value="${customer.firstName}">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="middleName">Middle Name</label>
+                            <span th:if="${#fields.hasErrors('middleName')}" th:errors="*{middleName}"
+                                  class="alert alert-danger"></span>
+                            <input id="middleName" name="middleName" type="text" class="form-control"
+                                   th:value="${customer.middleName}">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="isbn">Last Name</label>
+                            <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"
+                                  class="alert alert-danger"></span>
+                            <input id="lastName" name="lastName" type="text" class="form-control" th:value="${customer.lastName}">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="isbn">Email</label>
+                            <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+                                  class="alert alert-danger"></span>
+                            <input id="email" name="email" type="text" class="form-control" th:value="${customer.email}">
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="row">
+                	<div class="col-md-6">
+                        <div class="form-group">
+                            <label for="username">User Name</label>
+                            <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"
+                                  class="alert alert-danger"></span>
+                            <input id="username" name="username" type="text" class="form-control"
+                                   th:value="${username}">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="publisher">Password</label>
+                            <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
+                                  class="alert alert-danger"></span>
+                            <input id="password" name="password" type="text" class="form-control"
+                                   th:value="${customer.password}">
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="row">
+                	<div class="col-md-6">
+                        <div class="form-group">
+                            <label for="street">Street</label>
+                            <span th:if="${#fields.hasErrors('address.street')}" th:errors="*{address.street}"
+                                  class="alert alert-danger"></span>
+                            <input id="street" name="street" type="text" class="form-control"
+                                   th:value="${address.street}">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="city">City</label>
+                            <span th:if="${#fields.hasErrors('address.city')}" th:errors="*{address.city}"
+                                  class="alert alert-danger"></span>
+                            <input id="city" name="city" type="text" class="form-control"
+                                   th:value="${address.city}">
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="row">
+                	<div class="col-md-6">
+                        <div class="form-group">
+                            <label for="state">State</label>
+                            <span th:if="${#fields.hasErrors('address.state')}" th:errors="*{address.state}"
+                                  class="alert alert-danger"></span>
+                            <input id="state" name="state" type="text" class="form-control"
+                                   th:value="${address.state}">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="zipCode">ZIP Code</label>
+                            <span th:if="${#fields.hasErrors('address.zipCode')}" th:errors="*{address.zipCode}"
+                                  class="alert alert-danger"></span>
+                            <input id="zipCode" name="zipCode" type="text" class="form-control"
+                                   th:value="${address.zipCode}">
+                        </div>
+                    </div>
+                    
+                </div>
+                <div style="float:right;">
+                    <a href="/pcrepair/technician/customerList" class="btn btn-outline-warning">Cancel</a>&nbsp;&nbsp;&nbsp;
+                    <button id="btnSubmit" type="submit" class="btn btn-outline-success">Save Customer</button>
+                </div>
+            </fieldset>
+        </form>
+        
+    </div>
+    
+    <th:block layout:fragment="footer"></th:block>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<header class="header" th:fragment="header" xmlns:th="http://www.thymeleaf.org">
+    
+    
+    <nav class="navbar navbar-expand navbar-dark bg-primary">
+        <a style="font-size: 20px; padding-right: 3em;" class="navbar-brand" href="/pcrepair/home">PC Repair Tracking System</a>
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav mr-auto">
+                 <li class="nav-item" style="border-left: white 1px solid; padding-left: 2em; padding-right: 2em;">
+                    <a class="nav-link" href="/pcrepair/technician/customerList">Customers</a>
+                </li>
+                <li class="nav-item" style="border-left: white 1px solid; padding-left: 2em;">
+                    <a class="nav-link" href="/pcrepair/technician/ticketList">Tickets</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <span style="color:#fff;padding-left: 2em; padding-right: 1em;">Welcome, Guest</span>
+                <a href="/pcrepair/public/login" class="btn btn-secondary">Sign In</a>
+            </form>
+        </div>
+    </nav>
+</header>

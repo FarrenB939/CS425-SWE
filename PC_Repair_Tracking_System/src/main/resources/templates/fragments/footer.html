@@ -1,0 +1,6 @@
+<footer class="footer" th:fragment="footer" xmlns:th="http://www.thymeleaf.org">
+    <div class="container">
+        <span class="text-muted">Ben Farren - CS425</span>
+        <span style="float:right;" class="text-muted" th:text="${#dates.format(#dates.createNow(),'YYYY/MM/dd')}"></span>
+    </div>
+</footer>

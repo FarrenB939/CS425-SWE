@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      layout:decorate="~{layouts/master-layout}">
+<head>
+	<title>PC Repair Tracking System - Ticket List</title>
+</head>
+<body>
+    <th:block layout:fragment="header"></th:block>
+
+    <div layout:fragment="content" style="padding-top:1em;" class="container">
+        <div style="margin-bottom: 1em;">
+            <span style="font-size: 2em; color: #32a5e7;">New Ticket Form</span>
+        </div>
+
+        <form id="newTicketForm" method="post" action="/pcrepair/technician/ticketNew" th:object="${ticket}">
+            <fieldset>
+                <input type="hidden" name="ticketId" th:value="${ticket.ticketId}"/>
+                <input type="hidden" name="status" th:value="Open"/>
+                <input type="hidden" name="paymentStatus" th:value="' '"/>
+                <input type="hidden" name="amountOwed" th:value="0.00"/>
+                <input type="hidden" name="dateOpened" th:value="${ticket.dateOpened}"/>
+                
+                <div class="row">
+                	<div class="col-md-6">
+                        <div class="form-group">
+                            <label for="deviceType">Device Type</label>
+                            <span th:if="${#fields.hasErrors('deviceType')}" th:errors="*{deviceType}"
+                                  class="alert alert-danger"></span>
+                            <select name="deviceType" id="deviceType" class="form-control" required="required">
+                                    <option value="Desktop">Desktop</option>
+                                    <option value="Laptop">Laptop</option>
+                                    <option value="Phone">Phone</option>
+                                    <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="deviceBrand">Device Brand</label>
+                            <span th:if="${#fields.hasErrors('deviceBrand')}" th:errors="*{deviceBrand}"
+                                  class="alert alert-danger"></span>
+                            <input id="deviceBrand" name="deviceBrand" type="text" class="form-control" th:value="${ticket.deviceBrand}">
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="deviceDetails">Device Details</label>
+                            <span th:if="${#fields.hasErrors('deviceDetails')}" th:errors="*{deviceDetails}"
+                                  class="alert alert-danger"></span>
+                            <input id="deviceDetails" name="deviceDetails" type="text" class="form-control"
+                                   aria-describedby="deviceDetailsHelp"
+                                   th:value="${ticket.deviceDetails}">
+                            <small id="deviceDetailsHelp" class="form-text text-muted">Enter a an identifying detail of your device; ie. color.</small>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+	                    <div class="form-group">
+	                                <label for="customer">Customer:</label>
+	                                <span th:if="${#fields.hasErrors('customer')}" th:errors="*{customer}"
+	                                      class="alert alert-danger"></span>
+	                                <select name="customer" id="customer" class="form-control" required="required">
+	                                    <option value="">Select a customer</option>
+	                                    <option th:each="customer : ${customers}" th:value="${customer.userId}" th:text="${customer.lastName}+', '+${customer.firstName}"></option>
+	                                </select>
+                   		</div> 
+                   </div>
+                    
+                </div>
+                <div class="row">
+                	<div class="col-md-12">
+                        <div class="form-group">
+                            <label for="customerComments">Problem Description</label>
+                            <span th:if="${#fields.hasErrors('customerComments')}" th:errors="*{customerComments}"
+                                  class="alert alert-danger"></span>
+                            <input id="customerComments" name="customerComments" type="text" class="form-control"
+                                   th:value="${customerComments}">
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+                <div style="float:right;">
+                    <a href="/pcrepair/technician/ticketList" class="btn btn-outline-warning">Cancel</a>&nbsp;&nbsp;&nbsp;
+                    <button id="btnSubmit" type="submit" class="btn btn-outline-success">Save Ticket</button>
+                </div>
+            </fieldset>
+        </form>
+        
+    </div>
+    
+    <th:block layout:fragment="footer"></th:block>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      layout:decorate="~{layouts/master-layout}">
+<head>
+<title>PC Repair Tracking System - Customer List</title>
+</head>
+<body>
+    <th:block layout:fragment="header"></th:block>
+
+    <div layout:fragment="content" style="padding-top:1em;" class="container">
+        <div>
+            <span style="font-size: 2em; color: #32a5e7;">Customers</span>
+
+            <span style="float:right;">
+                <a class="btn btn-outline-success btn-lg" href="/pcrepair/technician/customerNew">Add New Customer</a>
+            </span>
+        </div>
+
+        <p>&nbsp;</p>
+        <div style="font-size: 1em">
+        	<!-- Search -->
+			<div>
+				 <form id="searchCustomerForm" method="get" th:action="@{'/pcrepair/technician/customerList'}" th:object="${customer}">
+				 	<input type="text" name="searchValue" id="searchValue" th:value="${searchValue}"/> 
+        			<input type="submit" value="Search"/>
+        			<label th:for="includeClosed" th:text="'Include closed accounts:'"></label>
+        			<input type="checkbox" name="includeClosed" th:checked="on"/>
+				 </form>
+			</div>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Middle Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">User Name</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">&nbsp;</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="customer,iterStat : ${customers}"> 
+
+                    
+                    <th scope="row" th:text="${iterStat.count}"></th>
+                    <td th:text="${customer.lastName}"></td>
+                    <td th:text="${customer.firstName}"></td>
+                    <td th:text="${customer.middleName}"></td>
+                    <td th:text="${customer.email}"></td>
+                    <td th:text="${customer.username}"></td>
+                    <td th:text="${customer.address.street}+', '+${customer.address.city}+' '+${customer.address.state}+' '+${customer.address.zipCode}"></td>
+                    <td><a th:href="@{'/pcrepair/technician/customerEdit/{customerId}'(customerId=${customer.userId})}">Edit</a></td>
+                    <td>
+                        <a th:href="@{'/pcrepair/technician/customerClose/' + ${customer.userId}}">Close</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <!-- Pagination -->
+            <div>
+                <ul class="pagination" th:if="${customers.totalPages > 0}">
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#">Pages: </a>
+                    </li>
+                    <li th:each="i : ${#numbers.sequence(1, customers.totalPages)}"
+                        th:class="${currentPageNo}==${i-1}?'page-item active':'page-item'">
+                        <a th:href="@{/pcrepair/technician/customerList(pageno=${i-1})}"
+                           th:text="${i}" class = "page-link"></a>
+                    </li>
+                </ul> 
+                
+            </div>
+            
+        </div>
+    </div>
+
+    <th:block layout:fragment="footer"></th:block>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+</body>
+</html>
